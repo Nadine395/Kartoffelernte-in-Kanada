@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kartoffelernte in Kanada – Fragen beantworten</title>
+<link href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--pot:#ecc98d;--q:#cfe6f7;--hl:#fff176;--ink:#2b2b2b;--green:#3f8f2e}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Andika',system-ui,sans-serif;color:var(--ink);background:linear-gradient(#e6f3fb,#f8f3e6 70%);min-height:100vh;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
+header{position:sticky;top:0;z-index:20;background:#fffdf6;border-bottom:3px solid #6dbb4a;padding:10px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+h1{font-size:26px;margin:0;flex:1}
+#basket{font-size:28px;background:#fbe9c4;border-radius:999px;padding:4px 16px;font-weight:700;transition:transform .2s}
+#basket.pop{animation:pop .35s}
+@keyframes pop{50%{transform:scale(1.3)}}
+.tabs{display:flex;gap:8px;max-width:920px;margin:14px auto 0;padding:0 12px}
+.tab{flex:1;font:inherit;font-size:21px;padding:12px;border:3px solid #c9b48a;background:#fff;border-radius:14px 14px 0 0;cursor:pointer;color:#6b5634}
+.tab.on{background:#7a5230;border-color:#7a5230;color:#fff;font-weight:700}
+main{max-width:920px;margin:0 auto;padding:0 12px 40px}
+.card{background:#fff;border-radius:0 0 18px 18px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:18px 18px 22px}
+details{background:#fff8e1;border-radius:12px;padding:8px 14px;margin-bottom:14px;font-size:20px}
+summary{cursor:pointer;font-weight:700}
+details ol{margin:8px 0 4px;padding-left:26px;line-height:1.6}
+.prog{display:flex;justify-content:space-between;align-items:center;font-size:20px;color:#6b5634;margin-bottom:10px}
+.dots span{display:inline-block;width:16px;height:16px;border-radius:50%;background:#e4d8c0;margin-left:6px}
+.dots span.done{background:#c99a52}.dots span.now{background:#6dbb4a}
+.step{font-size:22px;margin:12px 0 10px}
+.field{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;padding:22px 12px 26px;border-radius:16px;border-top:10px solid #6dbb4a;
+ background:radial-gradient(circle at 30% 40%,rgba(0,0,0,.18) 2px,transparent 3px) 0 0/26px 26px,linear-gradient(#8a5a33,#654023)}
+.chip{font:inherit;font-size:32px;padding:8px 18px;border:none;cursor:pointer;color:#3b2a1a;background:var(--pot);
+ border-radius:46% 54% 52% 48%/58% 46% 54% 42%;box-shadow:inset -5px -5px 0 rgba(0,0,0,.08),0 4px 0 #3e2814;transition:background .2s}
+.chip.marked{background:var(--hl);box-shadow:0 0 0 5px #ffd600,0 4px 0 #3e2814;font-weight:700}
+.field.done .chip:not(.marked){background:var(--q)}
+.shake{animation:shake .4s}
+@keyframes shake{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+.msg{min-height:1.7em;font-size:22px;text-align:center;margin:10px 0}
+.good{color:#2e7d32}.bad{color:#c62828}
+.hidden{display:none}
+.zone{min-height:96px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:16px;border:3px dashed #9fc0da;border-radius:14px;
+ background:repeating-linear-gradient(#fff 0 62px,#dfe8f0 62px 64px)}
+.zone.over{border-style:solid;border-color:#3d8fd1;background:#f0f8ff}
+.zone.right{border:3px solid var(--green);background:#ebf7e5}
+.zone.wrong{animation:shake .4s;border-color:#e57373}
+.ph{color:#9aa9b5;font-size:22px}
+.arrow{text-align:center;font-size:22px;color:#6b5634;margin:10px 0}
+.bank{min-height:76px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center;padding:14px;background:#f3ead8;border-radius:14px}
+.tile{font-size:30px;padding:8px 16px;border-radius:12px;touch-action:none;cursor:grab;box-shadow:0 3px 0 rgba(0,0,0,.22);background:#eee}
+.tile.q{background:var(--q)}.tile.t{background:var(--pot)}.tile.p{background:#d9d9d9;font-weight:700;min-width:46px;text-align:center}
+.tile.dim{opacity:.3}
+.ghost{position:fixed;pointer-events:none;z-index:50;transform:scale(1.08) rotate(-2deg);box-shadow:0 8px 16px rgba(0,0,0,.25)}
+.legend{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;font-size:18px;color:#555;margin-top:10px}
+.legend .tile{font-size:17px;padding:3px 10px;cursor:default;box-shadow:none}
+.tip{background:#fff3cd;border-radius:12px;padding:10px 14px;font-size:20px;margin-top:12px}
+.btns{display:flex;gap:12px;justify-content:center;margin-top:16px;flex-wrap:wrap}
+button.b1,button.b2{font:inherit;font-size:24px;padding:12px 26px;border:none;border-radius:14px;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,.25)}
+.b1{background:var(--green);color:#fff;font-weight:700}.b2{background:#e3e3e3;color:#333}
+.inp{width:100%;font:inherit;font-size:30px;padding:14px 16px;border:3px solid #9fc0da;border-radius:14px;outline:none;-webkit-user-select:text;user-select:text;
+ background:repeating-linear-gradient(#fff 0 62px,#dfe8f0 62px 64px)}
+.inp:focus{border-color:#3d8fd1}
+.inp.right{border-color:var(--green);background:#ebf7e5}
+.rules{font-size:19px;color:#555;text-align:center;margin-top:8px}
+.sol{font-size:26px;text-align:center;margin-top:12px;background:#eef6fc;border-radius:12px;padding:10px}
+.fly{position:fixed;font-size:34px;z-index:99;pointer-events:none;transition:transform .7s cubic-bezier(.3,-.4,.5,1),opacity .7s}
+.end{text-align:center;padding:20px}
+.end .big{font-size:80px}.end h2{font-size:36px;margin:6px 0}.end p{font-size:24px}
+.pile{font-size:34px;line-height:1.3;max-width:600px;margin:0 auto 16px}
+</style>
+</head>
+<body>
+<header><h1>🥔 Kartoffelernte in Kanada</h1><div id="basket">🧺 <span id="score">0</span></div></header>
+<div class="tabs">
+ <button class="tab" data-ex="1">Übung 1: Wörter hochschieben ⬆</button>
+ <button class="tab" data-ex="2">Übung 2: Selbst schreiben ✏️</button>
+</div>
+<main>
+ <div class="card">
+  <details><summary>So geht's</summary>
+   <ol>
+    <li>Markiere das <b>Fragewort</b> (Wann? Wer? Wo? Was?) und das <b>Fragezeichen</b>.</li>
+    <li>Alle anderen Wörter aus der Frage kommen in die Antwort.</li>
+    <li>Den Rest findest du im Text: Buch, Seite 83. 📖</li>
+    <li>Großer Anfangsbuchstabe, Leertaste zwischen den Wörtern, Punkt am Ende.</li>
+   </ol>
+  </details>
+  <div id="card"></div>
+ </div>
+</main>
+<script>
+const DATA=[
+ {q:"Wann sind die Kartoffeln reif ?",w:"Wann",
+  tiles:[["am","t"],["Ende","t"],["des","t"],["Sommers","t"],["sind","q"],["die","q"],["Kartoffeln","q"],["reif","q"],[".","p"]],
+  ok:["am Ende des Sommers sind die Kartoffeln reif .","die Kartoffeln sind am Ende des Sommers reif ."]},
+ {q:"Wer ist mit dem Traktor im Feld ?",w:"Wer",
+  tiles:[["Farmer","t"],["Ken","t"],["ist","q"],["mit","q"],["dem","q"],["Traktor","q"],["im","q"],["Feld","q"],[".","p"]],
+  ok:["Farmer Ken ist mit dem Traktor im Feld ."]},
+ {q:"Wo ist die Kartoffelernte ?",w:"Wo",
+  tiles:[["ist","q"],["die","q"],["Kartoffelernte","q"],["in","t"],["Kanada","t"],[".","p"]],
+  ok:["die Kartoffelernte ist in Kanada .","in Kanada ist die Kartoffelernte ."]},
+ {q:"Was kommt in Kisten ?",w:"Was",
+  tiles:[["die","t"],["Knollen","t"],["kommen","t"],["in","q"],["Kisten","q"],[".","p"]],
+  ok:["die Knollen kommen in Kisten .","die Kartoffeln kommen in Kisten ."],
+  tip:"Achtung: Es sind <b>viele</b> Knollen. Darum heißt es nicht „kommt“, sondern „<b>kommen</b>“."},
+ {q:"Was nimmt Farmer Ken mit in seinen Keller ?",w:"Was",
+  tiles:[["Farmer","q"],["Ken","q"],["nimmt","q"],["mit","q"],["in","q"],["seinen","q"],["Keller","q"],["die","t"],["kleinen","t"],["Kartoffeln","t"],[".","p"]],
+  ok:["Farmer Ken nimmt die kleinen Kartoffeln mit in seinen Keller .","die kleinen Kartoffeln nimmt Farmer Ken mit in seinen Keller .",
+      "Farmer Ken nimmt die kleinen Kartoffeln in seinen Keller mit .","die kleinen Kartoffeln nimmt er mit in seinen Keller ."]},
+ {q:"Was isst Kens Familie im Winter ?",w:"Was",
+  tiles:[["Kens","q"],["Familie","q"],["isst","q"],["im","q"],["Winter","q"],["Koteletts","t"],["mit","t"],["Kartoffelsalat","t"],[".","p"]],
+  ok:["Kens Familie isst im Winter Koteletts mit Kartoffelsalat .","im Winter isst Kens Familie Koteletts mit Kartoffelsalat .",
+      "Kens Familie isst Koteletts mit Kartoffelsalat im Winter ."]}
+];
+const $=s=>document.querySelector(s);
+const cap=w=>w.charAt(0).toUpperCase()+w.slice(1);
+const toSentence=s=>{const t=s.split(' ');t[0]=cap(t[0]);return t.join(' ').replace(/ \./g,'.')};
+let ex=location.hash==='#uebung2'?2:1;
+const st={1:{i:0,score:0,got:new Set()},2:{i:0,score:0,got:new Set()}};
+let T=null,D=null,tries=0,ac=null;
+
+function beep(f,d,up=true){try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();const t=ac.currentTime,o=ac.createOscillator(),g=ac.createGain();
+ o.type='sine';o.frequency.setValueAtTime(f,t);o.frequency.exponentialRampToValueAtTime(up?f*1.6:f*.6,t+d);
+ g.gain.setValueAtTime(.2,t);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g);g.connect(ac.destination);o.start(t);o.stop(t+d)}catch(e){}}
+function say(t,c,where='#msg'){const m=$(where);if(m){m.innerHTML=t;m.className='msg '+(c||'')}}
+function updScore(){$('#score').textContent=st[ex].score}
+function fly(el,key){
+ const s=st[ex];if(s.got.has(key))return;s.got.add(key);
+ const a=el.getBoundingClientRect(),b=$('#basket').getBoundingClientRect(),p=document.createElement('div');
+ p.className='fly';p.textContent='🥔';p.style.left=(a.left+a.width/2-17)+'px';p.style.top=(a.top+a.height/2-17)+'px';document.body.appendChild(p);
+ requestAnimationFrame(()=>requestAnimationFrame(()=>{p.style.transform=`translate(${b.left+b.width/2-a.left-a.width/2}px,${b.top+b.height/2-a.top-a.height/2}px) scale(.6)`}));
+ setTimeout(()=>{p.remove();s.score++;updScore();const k=$('#basket');k.classList.remove('pop');void k.offsetWidth;k.classList.add('pop');beep(660,.12)},720);
+}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+
+function render(){
+ document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',+t.dataset.ex===ex));
+ updScore();
+ const s=st[ex],card=$('#card');
+ if(s.i>=DATA.length){
+  card.innerHTML=`<div class="end"><div class="big">🧺</div><h2>Geschafft! 🎉</h2>
+   <p>Du hast <b>${s.score}</b> Kartoffeln geerntet.</p><div class="pile">${'🥔'.repeat(s.score)}</div>
+   <div class="btns"><button class="b2" id="again">↺ Noch einmal</button>${ex===1?'<button class="b1" id="go2">Weiter zu Übung 2 ➜</button>':''}</div></div>`;
+  $('#again').onclick=()=>{st[ex]={i:0,score:0,got:new Set()};render()};
+  if(ex===1)$('#go2').onclick=()=>switchTo(2);
+  return;
+ }
+ const it=DATA[s.i];
+ card.innerHTML=`<div class="prog"><span>Frage ${s.i+1} von ${DATA.length}</span><span class="dots">${DATA.map((_,k)=>`<span class="${k<s.i?'done':k===s.i?'now':''}"></span>`).join('')}</span></div>
+  <div class="step">1. Tippe auf das <b>Fragewort</b> und das <b>Fragezeichen</b> – so erntest du Kartoffeln! 🥔</div>
+  <div class="field" id="qrow"></div><div class="msg" id="msg"></div><div id="stage2" class="hidden"></div>`;
+ const row=$('#qrow');let n=0;
+ it.q.split(' ').forEach((w,k)=>{
+  const c=document.createElement('button');c.className='chip';c.textContent=w;
+  c.onclick=()=>{
+   if(c.classList.contains('marked')||n>=2)return;
+   if(w===it.w||w==='?'){
+    c.classList.add('marked');fly(c,s.i+'-'+k);beep(520,.15);n++;
+    if(n===2){row.classList.add('done');say('Super! 🎉 Die <span style="background:var(--q);padding:0 6px;border-radius:6px">blauen Wörter</span> kommen in die Antwort.','good');
+     setTimeout(()=>ex===1?stage1(it):stage2(it),350)}
+    else say(w==='?'?'Gut! Jetzt noch das Fragewort.':'Gut! Jetzt noch das Fragezeichen.','good');
+   }else{c.classList.remove('shake');void c.offsetWidth;c.classList.add('shake');beep(220,.22,false);
+    say(`„${w}“ ist kein Fragewort. Such das W-Wort!`,'bad')}
+  };
+  row.appendChild(c);
+ });
+}
+
+/* ---------- Übung 1: Wörter hochschieben ---------- */
+function stage1(it){
+ const s2=$('#stage2');s2.classList.remove('hidden');
+ s2.innerHTML=`<div class="step">2. Schiebe die Wörter nach oben und baue die Antwort.</div>
+  <div class="zone" id="zone"></div><div class="arrow">⬆ ⬆ ⬆</div><div class="bank" id="bank"></div>
+  <div class="legend"><span class="tile q">aus der Frage</span><span class="tile t">aus dem Text 📖</span><span class="tile p">.</span>Punkt</div>
+  ${it.tip?`<div class="tip">💡 ${it.tip}</div>`:''}
+  <div class="msg" id="fb"></div>
+  <div class="btns" id="btns"><button class="b2" id="reset">↺ Neu</button><button class="b1" id="check">✔ Prüfen</button></div>`;
+ const mix=()=>{let o,c=0;do{o=shuffle(it.tiles.map((_,k)=>k));c++}while(c<20&&it.ok.some(x=>x.toLowerCase()===o.map(k=>it.tiles[k][0]).join(' ').toLowerCase()));return o};
+ T={it,bank:mix(),ans:[],done:false};
+ drawTiles();
+ $('#reset').onclick=()=>{T.bank=mix();T.ans=[];drawTiles();say('','','#fb')};
+ $('#check').onclick=check1;
+}
+function drawTiles(){
+ const z=$('#zone'),b=$('#bank');z.innerHTML='';b.innerHTML='';
+ T.ans.forEach((id,pos)=>z.appendChild(mkTile(id,pos===0?cap(T.it.tiles[id][0]):T.it.tiles[id][0])));
+ T.bank.forEach(id=>b.appendChild(mkTile(id,T.it.tiles[id][0])));
+ if(!T.ans.length)z.innerHTML='<span class="ph">Hier kommt deine Antwort hin.</span>';
+}
+function mkTile(id,label){
+ const e=document.createElement('div');e.className='tile '+T.it.tiles[id][1];e.textContent=label;e.dataset.id=id;
+ e.addEventListener('pointerdown',ev=>{if(T.done)return;ev.preventDefault();D={id,el:e,x0:ev.clientX,y0:ev.clientY,moved:false}});
+ return e;
+}
+function inside(el,ev,pad=24){const r=el.getBoundingClientRect();return ev.clientX>=r.left-pad&&ev.clientX<=r.right+pad&&ev.clientY>=r.top-pad&&ev.clientY<=r.bottom+pad}
+window.addEventListener('pointermove',ev=>{
+ if(!D)return;
+ if(!D.moved&&Math.hypot(ev.clientX-D.x0,ev.clientY-D.y0)>8){
+  D.moved=true;const r=D.el.getBoundingClientRect();D.g=D.el.cloneNode(true);D.g.classList.add('ghost');
+  D.g.style.left=r.left+'px';D.g.style.top=r.top+'px';D.ox=D.x0-r.left;D.oy=D.y0-r.top;document.body.appendChild(D.g);D.el.classList.add('dim');
+ }
+ if(D.moved){D.g.style.left=(ev.clientX-D.ox)+'px';D.g.style.top=(ev.clientY-D.oy)+'px';$('#zone').classList.toggle('over',inside($('#zone'),ev))}
+});
+function endDrag(ev,cancel){
+ if(!D)return;const d=D;D=null;const z=$('#zone');
+ if(!z){d.g&&d.g.remove();return}
+ if(!d.moved){
+  if(cancel)return;
+  if(T.ans.includes(d.id)){T.ans=T.ans.filter(x=>x!==d.id);T.bank.push(d.id)}else{T.bank=T.bank.filter(x=>x!==d.id);T.ans.push(d.id)}
+  beep(440,.07);drawTiles();say('','','#fb');return;
+ }
+ d.g.remove();z.classList.remove('over');
+ if(!cancel&&inside(z,ev)){
+  const tiles=[...z.querySelectorAll('.tile')].filter(t=>+t.dataset.id!==d.id);let idx=tiles.length;
+  for(let k=0;k<tiles.length;k++){const r=tiles[k].getBoundingClientRect();
+   if(ev.clientY<r.top||(ev.clientY<=r.bottom&&ev.clientX<r.left+r.width/2)){idx=k;break}}
+  const ids=tiles.map(t=>+t.dataset.id);ids.splice(idx,0,d.id);
+  T.bank=T.bank.filter(x=>x!==d.id);T.ans=ids;beep(520,.07);
+ }else if(!cancel&&T.ans.includes(d.id)){T.ans=T.ans.filter(x=>x!==d.id);T.bank.push(d.id)}
+ drawTiles();say('','','#fb');
+}
+window.addEventListener('pointerup',ev=>endDrag(ev,false));
+window.addEventListener('pointercancel',ev=>endDrag(ev,true));
+
+function check1(){
+ const it=T.it,z=$('#zone');
+ if(!T.ans.length)return say('Schiebe zuerst Wörter nach oben.','bad','#fb');
+ const s=T.ans.map(id=>it.tiles[id][0]).join(' ').toLowerCase();
+ if(it.ok.some(o=>o.toLowerCase()===s)){
+  T.done=true;z.classList.add('right');say('Richtig! 🥳 Toll gemacht!','good','#fb');
+  [0,1,2].forEach(k=>setTimeout(()=>fly(z,st[1].i+'-a'+k),k*180));
+  $('#btns').innerHTML='<button class="b1" id="next">Weiter ➜</button>';$('#next').onclick=next;
+ }else{
+  z.classList.remove('wrong');void z.offsetWidth;z.classList.add('wrong');beep(220,.25,false);
+  if(T.bank.length)say('Benutze alle Wörter! Unten liegen noch welche.','bad','#fb');
+  else if(it.tiles[T.ans[T.ans.length-1]][0]!=='.')say('Der Punkt kommt ans Ende vom Satz.','bad','#fb');
+  else say('Die Reihenfolge stimmt noch nicht. Lies deinen Satz leise vor. Klingt er gut?','bad','#fb');
+ }
+}
+
+/* ---------- Übung 2: Selbst schreiben ---------- */
+function stage2(it){
+ const s2=$('#stage2');s2.classList.remove('hidden');tries=0;
+ s2.innerHTML=`<div class="step">2. Schreibe die ganze Antwort. Den Rest findest du im Buch auf Seite 83. 📖</div>
+  <input id="inp" class="inp" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Schreibe hier …">
+  <div class="rules">␣ Leertaste zwischen den Wörtern · Großer Anfangsbuchstabe · Punkt am Ende</div>
+  ${it.tip?`<div class="tip">💡 ${it.tip}</div>`:''}
+  <div class="msg" id="fb"></div>
+  <div class="btns" id="btns"><button class="b1" id="check">✔ Prüfen</button></div><div id="sol"></div>`;
+ const inp=$('#inp');inp.focus();
+ inp.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();check2()}});
+ inp.addEventListener('input',()=>{inp.classList.remove('right');say('','','#fb')});
+ $('#check').onclick=check2;
+}
+function check2(){
+ const it=DATA[st[2].i],inp=$('#inp'),v=inp.value.trim(),targets=it.ok.map(toSentence),ns=x=>x.replace(/\s+/g,''),lc=x=>x.toLowerCase();
+ if(!v)return say('Schreibe zuerst deine Antwort.','bad','#fb');
+ if(targets.includes(v)){
+  inp.classList.add('right');inp.disabled=true;say('Richtig! 🥳 Super geschrieben!','good','#fb');
+  [0,1,2].forEach(k=>setTimeout(()=>fly(inp,st[2].i+'-a'+k),k*180));
+  $('#btns').innerHTML='<button class="b1" id="next">Weiter ➜</button>';$('#next').onclick=next;$('#sol').innerHTML='';return;
+ }
+ tries++;beep(220,.25,false);inp.classList.remove('shake');void inp.offsetWidth;inp.classList.add('shake');
+ let m;
+ if(targets.includes(v.replace(/\s+/g,' ')))m='Fast! Mach nur <b>eine</b> Leertaste zwischen zwei Wörtern.';
+ else if(targets.includes(v.replace(/\s+([.?!])/g,'$1')))m='Fast! Vor dem Punkt kommt keine Leertaste.';
+ else if(targets.some(t=>ns(t)===ns(v)))m='Achte auf die Leertaste ␣ zwischen den Wörtern!';
+ else if(/\?$/.test(v))m='In die Antwort kommt kein Fragezeichen. Am Ende steht ein Punkt.';
+ else if(targets.includes(v+'.'))m='Fast! Vergiss den Punkt am Ende nicht.';
+ else if(targets.some(t=>lc(t)===lc(v)))m='Achte auf Groß- und Kleinschreibung! Der Satz beginnt groß.';
+ else if(targets.some(t=>lc(t)===lc(v+'.')))m='Achte auf Groß- und Kleinschreibung und den Punkt am Ende!';
+ else if(lc(v).startsWith(lc(it.w)+' '))m='Das Fragewort kommt nicht in die Antwort.';
+ else if(it.tip&&/\bkommt\b/.test(v))m='💡 Es heißt nicht „kommt“, sondern „kommen“.';
+ else m='Noch nicht ganz. Nimm die blauen Wörter aus der Frage und such den Rest im Buch auf Seite 83.';
+ say(m,'bad','#fb');
+ if(tries>=3&&!$('#showsol')){
+  $('#btns').insertAdjacentHTML('beforeend','<button class="b2" id="showsol">👀 Lösung zeigen</button>');
+  $('#showsol').onclick=()=>{$('#sol').innerHTML=`<div class="sol">${targets[0]}</div>`;
+   $('#btns').innerHTML='<button class="b1" id="check">✔ Prüfen</button><button class="b2" id="next">Weiter ➜</button>';
+   $('#check').onclick=check2;$('#next').onclick=next;inp.focus()};
+ }
+}
+function next(){st[ex].i++;render();window.scrollTo({top:0,behavior:'smooth'})}
+function switchTo(n){ex=n;try{history.replaceState(null,'','#uebung'+n)}catch(e){location.hash='uebung'+n}render();window.scrollTo(0,0)}
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>switchTo(+t.dataset.ex));
+window.addEventListener('hashchange',()=>{const n=location.hash==='#uebung2'?2:1;if(n!==ex){ex=n;render()}});
+render();
+</script>
+</body>
+</html>
